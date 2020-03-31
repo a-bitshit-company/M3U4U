@@ -4,4 +4,4 @@ synchronisieren und fehlende mp3 files von der Datenbank herunterladen.
 
 Datenbankmodell:
 
-![Diagram1](https://user-images.githubusercontent.com/28261677/77573851-937ec380-6ed1-11ea-9d1f-ea5347c07d7c.png)
+![Diagram1](https://user-images.githubusercontent.com/28261677/78033275-7a10c800-7366-11ea-82a4-b38a9ae1a168.png)
