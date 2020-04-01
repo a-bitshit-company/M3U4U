@@ -12,16 +12,16 @@ CREATE TABLE Playlists
 
 CREATE TABLE Songs
 (
-	SongId INT PRIMARY KEY AUTO_INCREMENT,
+	SongId INT NOT NULL,
 	PlaylistId int,
 	name VARCHAR(128),
 	FOREIGN KEY (PlaylistId) REFERENCES Playlists(Playlistid)
+	FOREIGN KEY (SongId) REFERENCES files(SongId)
 );
 
 CREATE TABLE Files
 (
-	SongId int NOT NULL,
+	SongId int NOT NULL  KEY AUTO_INCREMENT,
 	file LONGBLOB NOT NULL,
-	FOREIGN KEY (SongID) REFERENCES Songs(SongId)
 );
 
