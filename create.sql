@@ -21,7 +21,7 @@ CREATE TABLE Songs
 CREATE TABLE Files
 (
 	SongId int NOT NULL,
-	file LONGBLOB,
+	file LONGBLOB NOT NULL,
 	FOREIGN KEY (SongID) REFERENCES Songs(SongId)
 );
 
