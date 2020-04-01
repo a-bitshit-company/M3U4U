@@ -10,18 +10,19 @@ CREATE TABLE Playlists
 	description varchar(8000)
 );
 
+CREATE TABLE Files
+(
+	SongId int NOT NULL  KEY AUTO_INCREMENT,
+	file LONGBLOB NOT NULL
+);
+
 CREATE TABLE Songs
 (
 	SongId INT NOT NULL,
 	PlaylistId int,
 	name VARCHAR(128),
-	FOREIGN KEY (PlaylistId) REFERENCES Playlists(Playlistid)
+	FOREIGN KEY (PlaylistId) REFERENCES Playlists(Playlistid),
 	FOREIGN KEY (SongId) REFERENCES files(SongId)
 );
 
-CREATE TABLE Files
-(
-	SongId int NOT NULL  KEY AUTO_INCREMENT,
-	file LONGBLOB NOT NULL,
-);
 
