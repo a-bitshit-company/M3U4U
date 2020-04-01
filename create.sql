@@ -5,7 +5,7 @@ USE M3U4U;
 CREATE TABLE Playlists
 (
 	PlaylistId INT PRIMARY KEY AUTO_INCREMENT,
-	name varchar(128),
+	name  varchar(128) NOT NULL,
 	genre varchar(128),
 	description varchar(8000)
 );
@@ -19,7 +19,7 @@ CREATE TABLE Files
 CREATE TABLE Songs
 (
 	SongId INT NOT NULL,
-	PlaylistId int,
+	PlaylistId int NOT NULL,
 	name VARCHAR(128),
 	FOREIGN KEY (PlaylistId) REFERENCES Playlists(Playlistid),
 	FOREIGN KEY (SongId) REFERENCES files(SongId)
