@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import src.Types.*;
 import src.utils.PropertyReader;
 import java.io.IOException;
 
@@ -28,7 +30,15 @@ public class Db {
 			System.out.println(result.getString("Tables_in_m3u4u"));
 		}
 	}
-	public Playlist getPlaylist(){
+	public ArrayList<Playlist> getPlaylists() throws SQLException{
+		ArrayList<Playlist> pls = new ArrayList<Playlist>();
+		Statement stmt = con.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT * FROM Playlists");
+		while(result.next()){
+			Playlist temp = new Playlist(result.getString("name"), result.getString("genre"), result.getString("description"), result.getInt("PlaylistId"));
+			pls.add(temp);
+		}
+		return pls;
 		
 		
 	}
