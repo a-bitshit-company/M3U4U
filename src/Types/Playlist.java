@@ -11,7 +11,24 @@ public class Playlist {
 		this.genre = genre;
 		this.desc = desc;
 		this.playlistId = playlistId;
-		
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public int getPlaylistId() {
+		return playlistId;
+	}
+	
+	
 	
 }
