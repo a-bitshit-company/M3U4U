@@ -8,4 +8,13 @@ public class File {
         this.songId = songId;
         this.filePath = filePath;
     }
+
+	public int getSongId() {
+		return songId;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+    
 }
