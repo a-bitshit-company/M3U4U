@@ -27,6 +27,5 @@ public class Db {
 		while(result.next()){
 			System.out.println(result.getString("Tables_in_m3u4u"));
 		}
-		
 	}
 }
