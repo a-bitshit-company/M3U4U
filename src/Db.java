@@ -28,4 +28,8 @@ public class Db {
 			System.out.println(result.getString("Tables_in_m3u4u"));
 		}
 	}
+	public Playlist getPlaylist(){
+		
+		
+	}
 }
