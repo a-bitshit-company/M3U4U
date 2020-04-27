@@ -30,6 +30,17 @@ public class Db {
 			System.out.println(result.getString("Tables_in_m3u4u"));
 		}
 	}
+	public ArrayList<Song> getSongs() throws SQLException {
+		ArrayList<Song> songArrayList = new ArrayList<>();
+		Statement stmt = con.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT * FROM Songs");
+		while(result.next()){
+			Song temp = new Song(result.getInt("SongId"), result.getInt("PlaylistId"), result.getString("name"));
+			songArrayList.add(temp);
+		}
+		return songArrayList;
+	}
+
 	public ArrayList<Playlist> getPlaylists() throws SQLException{
 		ArrayList<Playlist> pls = new ArrayList<Playlist>();
 		Statement stmt = con.createStatement();
