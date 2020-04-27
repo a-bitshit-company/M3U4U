@@ -16,5 +16,13 @@ public class File {
 	public String getFilePath() {
 		return filePath;
 	}
+
+	public void setSongId(int songId) {
+		this.songId = songId;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
     
 }

@@ -28,6 +28,22 @@ public class Playlist {
 	public int getPlaylistId() {
 		return playlistId;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public void setPlaylistId(int playlistId) {
+		this.playlistId = playlistId;
+	}
 	
 	
 	

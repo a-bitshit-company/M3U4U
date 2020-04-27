@@ -22,6 +22,18 @@ public class Song {
 	public String getName() {
 		return name;
 	}
+
+	public void setSongId(int songId) {
+		SongId = songId;
+	}
+
+	public void setPlaylistId(int playlistId) {
+		PlaylistId = playlistId;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	
 	
