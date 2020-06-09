@@ -22,7 +22,7 @@ CREATE TABLE Songs
 	PlaylistId int NOT NULL,
 	name VARCHAR(128),
 	FOREIGN KEY (PlaylistId) REFERENCES Playlists(Playlistid),
-	FOREIGN KEY (SongId) REFERENCES files(SongId)
+	FOREIGN KEY (SongId) REFERENCES Files(SongId)
 );
 
 
