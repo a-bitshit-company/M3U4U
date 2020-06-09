@@ -1,0 +1,12 @@
+insert into Playlists (PlaylistId, genre, description, name) values (1, 'Drama', 'in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis', 'Creagrus furcatus');
+insert into Playlists (PlaylistId, genre, description, name) values (2, 'Horror', 'sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel', 'Ursus americanus');
+insert into Playlists (PlaylistId, genre, description, name) values (3, 'Action|Crime|Drama|Thriller', 'nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec', 'Meles meles');
+insert into Playlists (PlaylistId, genre, description, name) values (4, 'Comedy', 'ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis', 'Uraeginthus granatina');
+insert into Playlists (PlaylistId, genre, description, name) values (5, 'Adventure|Romance|Western', 'vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in', 'Rangifer tarandus');
+insert into Playlists (PlaylistId, genre, description, name) values (6, 'Comedy', 'viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper purus sit amet nulla', 'Lasiodora parahybana');
+insert into Playlists (PlaylistId, genre, description, name) values (7, 'Drama', 'pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed', 'Mabuya spilogaster');
+insert into Playlists (PlaylistId, genre, description, name) values (8, 'Sci-Fi', 'odio justo sollicitudin ut suscipit a feugiat et eros vestibulum', 'Heloderma horridum');
+insert into Playlists (PlaylistId, genre, description, name) values (9, 'Drama|Romance', 'interdum in ante vestibulum ante ipsum primis in faucibus orci', 'Lorythaixoides concolor');
+insert into Playlists (PlaylistId, genre, description, name) values (10, 'Action|Comedy', 'risus praesent lectus vestibulum quam sapien varius ut blandit non interdum in ante vestibulum ante ipsum primis in', 'Meleagris gallopavo');
+insert into Playlists (PlaylistId, genre, description, name) values (11, 'Crime|Drama|Mystery|Thriller', 'lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in', 'Theropithecus gelada');
+insert into Playlists (PlaylistId, genre, description, name) values (12, 'Comedy', 'neque aenean auctor gravida sem praesent id massa id nisl venenatis', 'Eudyptula minor');
