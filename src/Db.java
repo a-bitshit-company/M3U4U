@@ -75,7 +75,7 @@ public class Db {
 		return new MP3File(result.getInt("SongId"), parser(result.getBlob("file"), result.getInt("SongId")));
 	}
 	
-	private File parser(Blob blob, int SongId) throws IOException, SQLException{
+	private File parser(Blob blob, int SongId) throws IOException, FileNotFoundException, SQLException{
 		
 		//find songname and uses as file name
 		String fileName = "";
@@ -86,7 +86,8 @@ public class Db {
 			}
 			
 		}
-		File temp = new File(MusicFolderpath + "/" + fileName); //works on *nix and windows
+		File temp;
+		temp = new File(MusicFolderpath + "/" + fileName); //works on *nix and windows
 		
 		FileOutputStream output = new FileOutputStream(temp);
 		InputStream in = blob.getBinaryStream();
@@ -95,8 +96,9 @@ public class Db {
         while (in.read(buffer) > 0) {
         	output.write(buffer);
         }
+        return temp;
+        
               
-		return temp;
 	}
 	
 	public String getMusicFolderpath() {
