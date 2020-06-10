@@ -74,22 +74,26 @@ public class Db {
 	}
 	
 	private File parser(Blob blob, int SongId) throws IOException, SQLException{
-		InputStream in = blob.getBinaryStream();
+		
+		//find songname and uses as file name
 		String fileName = "";
 		for (Song s : songArrayList) {
 			if(s.getSongId() == SongId){
 				fileName = s.getName();
 				break;
 			}
+			
 		}
 		File temp = new File(MusicFolderpath + "\\" + fileName);
-		OutputStream out = new FileOutputStream(temp);
-		byte[] buff = new byte[Integer.MAX_VALUE]; 
 		
-		int len = 0;
-		while ((len = in.read(buff)) != -1) {
-		    out.write(buff, 0, len);
-		}
+		FileOutputStream output = new FileOutputStream(temp);
+		InputStream in = blob.getBinaryStream();
+        byte[] buffer = new byte[1024];
+              
+        while (in.read(buffer) > 0) {
+        	output.write(buffer);
+        }
+              
 		return temp;
 	}
 	

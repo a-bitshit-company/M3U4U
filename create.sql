@@ -19,7 +19,7 @@ CREATE TABLE Files
 CREATE TABLE Songs
 (
 	SongId INT NOT NULL,
-	PlaylistId int NOT NULL,
+	PlaylistId int,
 	name VARCHAR(128),
 	FOREIGN KEY (PlaylistId) REFERENCES Playlists(Playlistid),
 	FOREIGN KEY (SongId) REFERENCES Files(SongId)
