@@ -70,7 +70,7 @@ public class Db {
 		stmt.setInt(1, songId);
 		ResultSet result = stmt.executeQuery(); 
 		
-		result.first(); // move to first line of reultset
+		result.first(); // move to first line of resultset
 		
 		return new MP3File(result.getInt("SongId"), parser(result.getBlob("file"), result.getInt("SongId")));
 	}
@@ -86,7 +86,7 @@ public class Db {
 			}
 			
 		}
-		File temp = new File(MusicFolderpath + "/" + fileName);
+		File temp = new File(MusicFolderpath + "/" + fileName); //works on *nix and windows
 		
 		FileOutputStream output = new FileOutputStream(temp);
 		InputStream in = blob.getBinaryStream();

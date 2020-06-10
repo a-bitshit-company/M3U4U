@@ -7,7 +7,7 @@ public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException{
 			Db db = new Db();
-			db.getFile(39);
+			db.getFile(39); //test if right file for id gets used
 	}
 
 }
