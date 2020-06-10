@@ -34,7 +34,7 @@ public class Db {
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(URL,user,pwd);
         getSongs();
-        getPlaylists();
+        getPlaylists();  
 	}
 	
 	public void test() throws SQLException{
@@ -65,10 +65,12 @@ public class Db {
 	}
 
 	public MP3File getFile(int songId) throws SQLException, IOException{
-		String sql = "SELECT * FROM files WHERE SongId = ?";
+		String sql = "SELECT * FROM Files WHERE SongId = ?";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setInt(1, songId);
 		ResultSet result = stmt.executeQuery(); 
+		
+		result.first(); // move to first line of reultset
 		
 		return new MP3File(result.getInt("SongId"), parser(result.getBlob("file"), result.getInt("SongId")));
 	}
@@ -84,7 +86,7 @@ public class Db {
 			}
 			
 		}
-		File temp = new File(MusicFolderpath + "\\" + fileName);
+		File temp = new File(MusicFolderpath + "/" + fileName);
 		
 		FileOutputStream output = new FileOutputStream(temp);
 		InputStream in = blob.getBinaryStream();
