@@ -9,10 +9,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import src.Exceptions.CustomSQLException;
 import src.Types.*;
 import src.utils.PropertyReader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,26 +34,25 @@ public class Db {
 		String URL = rd.get("URL");
 		MusicFolderpath = rd.get("Directory");
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection(URL,user,pwd);
-        getSongs();
-        getPlaylists();  
+			con = DriverManager.getConnection(URL,user,pwd);
+			getSongs();
+	        getPlaylists();  
 	}
-	
-	public void test() throws SQLException{
-		Statement stmt = con.createStatement();
-		ResultSet result = stmt.executeQuery("show tables");
-		while(result.next()){
-			System.out.println(result.getString("Tables_in_m3u4u"));
-		}
-	}
-	public void getSongs() throws SQLException {
+      
+		public void getSongs(){
 		songArrayList = new ArrayList<>();
-		Statement stmt = con.createStatement();
-		ResultSet result = stmt.executeQuery("SELECT * FROM Songs");
-		while(result.next()){
-			Song temp = new Song(result.getInt("SongId"), result.getInt("PlaylistId"), result.getString("name"));
-			songArrayList.add(temp);
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			ResultSet result = stmt.executeQuery("SELECT * FROM Songs");
+			while(result.next()){
+				Song temp = new Song(result.getInt("SongId"), result.getInt("PlaylistId"), result.getString("name"));
+				songArrayList.add(temp);
+			}
+		} catch (SQLException e) {
+			throw new CustomSQLException("name von methode");
 		}
+		
 	}
 
 	public void getPlaylists() throws SQLException{
@@ -98,8 +99,20 @@ public class Db {
         }
         return temp;
         
+        
               
 	}
+	public void uploadSong(File file) throws FileNotFoundException, IOException, SQLException{
+		// check if filename Valid?, parser reusen?, getSongs() ausführen wenn benutzt, in Songs tabelle und Files tabelle klatschen
+		String sql = "INSERT INTO Files VALUES(?)";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		InputStream in = new FileInputStream(file);
+		stmt.setBlob(1,in);
+		ResultSet result = stmt.executeQuery(); 
+		
+		
+	}
+	
 	
 	public String getMusicFolderpath() {
 		return MusicFolderpath;
