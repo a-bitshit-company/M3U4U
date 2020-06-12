@@ -21,13 +21,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+
+//TODO:name von laufender methode an die customexception übergeben, test schreiben ob Song schon vorhanden
+
 public class Db {
 	private Connection con;
 	private String MusicFolderpath;
 	private ArrayList<Song> songArrayList;
 	private ArrayList<Playlist> PlaylistArrayList;
 	
-	public Db() throws IOException, ClassNotFoundException, SQLException{
+	public Db() throws IOException, ClassNotFoundException,CustomSQLException, SQLException{
 		PropertyReader rd = new PropertyReader("connection.properties");
 		String user = rd.get("user");
 		String pwd = rd.get("password");
@@ -39,7 +42,7 @@ public class Db {
 	        getPlaylists();  
 	}
       
-		public void getSongs(){
+		public void getSongs() throws CustomSQLException{
 		songArrayList = new ArrayList<>();
 		Statement stmt;
 		try {
@@ -50,7 +53,7 @@ public class Db {
 				songArrayList.add(temp);
 			}
 		} catch (SQLException e) {
-			throw new CustomSQLException("name von methode");
+			throw new CustomSQLException("name von methode"); 
 		}
 		
 	}
