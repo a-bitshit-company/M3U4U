@@ -21,8 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
-//TODO: test schreiben ob Song schon vorhanden
+//TODO methods: addtoplaylist, removefromplaylist, deletesong, converter zu m3u von datenbank, playlist(in m3u format) in datenbank einspeisen
 
 public class Db {
 	private Connection con;
@@ -117,21 +116,39 @@ public class Db {
         
               
 	}
-	public void uploadSong(File file) throws FileNotFoundException, IOException, SQLException{
-		//Files table
-		String sql = "INSERT INTO Files(file,MD5) VALUES(?,MD5(file))";
-		PreparedStatement stmt = con.prepareStatement(sql);
-		InputStream in = new FileInputStream(file);
-		stmt.setBlob(1,in);
-		stmt.execute();
-		
-		//Songs table
-		sql = "INSERT INTO Songs VALUES(LAST_INSERT_ID(),null,?)";
-		stmt = con.prepareStatement(sql);
-		stmt.setString(1, file.getName());
-		stmt.execute();
-		
-		
+	public void uploadSong(File file) throws FileNotFoundException, CustomSQLException{
+		//md5 hash to check if file already present
+		try {
+			//files table
+			String sql = "INSERT INTO Files(file,MD5) VALUES(?,MD5(file))";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			InputStream in = new FileInputStream(file);
+			stmt.setBlob(1,in);
+			stmt.execute();
+			
+			//Songs table
+			sql = "INSERT INTO Songs VALUES(LAST_INSERT_ID(),null,?)";
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, file.getName());
+			stmt.execute();
+			
+			getSongs(); //update list
+			
+		} catch (SQLException e) {
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
+	}
+	public void deleteSong(String name) {
+		for(Song s : songArrayList) {
+			if(s.getName()==name) {
+				deleteSong(s.getSongId());
+				break;
+			}
+		}
+	}
+	
+	public void deleteSong(int songId) {
 		
 	}
 	
