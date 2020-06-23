@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 
-//TODO:name von laufender methode an die customexception übergeben, test schreiben ob Song schon vorhanden
+//TODO: test schreiben ob Song schon vorhanden
 
 public class Db {
 	private Connection con;
@@ -53,30 +53,42 @@ public class Db {
 				songArrayList.add(temp);
 			}
 		} catch (SQLException e) {
-			throw new CustomSQLException("name von methode"); 
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName()); //name from method
 		}
 		
 	}
 
-	public void getPlaylists() throws SQLException{
+	public void getPlaylists() throws CustomSQLException{
 		ArrayList<Playlist> PlaylistArrayList = new ArrayList<Playlist>();
-		Statement stmt = con.createStatement();
-		ResultSet result = stmt.executeQuery("SELECT * FROM Playlists");
-		while(result.next()){
-			Playlist temp = new Playlist(result.getString("name"), result.getString("genre"), result.getString("description"), result.getInt("PlaylistId"));
-			PlaylistArrayList.add(temp);
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			ResultSet result = stmt.executeQuery("SELECT * FROM Playlists");
+			while(result.next()){
+				Playlist temp = new Playlist(result.getString("name"), result.getString("genre"), result.getString("description"), result.getInt("PlaylistId"));
+				PlaylistArrayList.add(temp);
+			}
+		} catch (SQLException e) {
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
+		
 	}
 
-	public MP3File getFile(int songId) throws SQLException, IOException{
+	public MP3File getFile(int songId) throws  IOException, CustomSQLException{
 		String sql = "SELECT * FROM Files WHERE SongId = ?";
-		PreparedStatement stmt = con.prepareStatement(sql);
-		stmt.setInt(1, songId);
-		ResultSet result = stmt.executeQuery(); 
+		PreparedStatement stmt;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, songId);
+			ResultSet result = stmt.executeQuery(); 
+			
+			result.first(); // move to first line of resultset
+			
+			return new MP3File(result.getInt("SongId"), parser(result.getBlob("file"), result.getInt("SongId")));
+		} catch (SQLException e) {
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
 		
-		result.first(); // move to first line of resultset
-		
-		return new MP3File(result.getInt("SongId"), parser(result.getBlob("file"), result.getInt("SongId")));
 	}
 	
 	private File parser(Blob blob, int SongId) throws IOException, FileNotFoundException, SQLException{
@@ -106,12 +118,19 @@ public class Db {
               
 	}
 	public void uploadSong(File file) throws FileNotFoundException, IOException, SQLException{
-		// check if filename Valid?, parser reusen?, getSongs() ausführen wenn benutzt, in Songs tabelle und Files tabelle klatschen
-		String sql = "INSERT INTO Files VALUES(?)";
+		//Files table
+		String sql = "INSERT INTO Files(file,MD5) VALUES(?,MD5(file))";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		InputStream in = new FileInputStream(file);
 		stmt.setBlob(1,in);
-		ResultSet result = stmt.executeQuery(); 
+		stmt.execute();
+		
+		//Songs table
+		sql = "INSERT INTO Songs VALUES(LAST_INSERT_ID(),null,?)";
+		stmt = con.prepareStatement(sql);
+		stmt.setString(1, file.getName());
+		stmt.execute();
+		
 		
 		
 	}
