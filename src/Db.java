@@ -208,10 +208,18 @@ public class Db {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
 	}
-	
-	
-	
-	
+
+	public void addToPlaylist(int songId) throws CustomSQLException {
+		try {
+			String sql = "";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			stmt.execute();
+		} catch (SQLException e) {
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
+	}
+
 	public String getMusicFolderpath() {
 		return MusicFolderpath;
 	}
