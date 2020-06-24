@@ -257,6 +257,8 @@ public class Db {
 		}
 	}
 	
+	//public void addPlaylist()
+	
 
 	public String getMusicFolderpath() {
 		return MusicFolderpath;

@@ -11,35 +11,72 @@ import src.utils.UI;
 public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException, CustomSQLException{
-			Db db = new Db();
-			UI ui = new UI();
-			File test = new File("/home/matteo/test/huan");
+		Db db = new Db();
+		UI ui = new UI();
+		File test = new File("/home/matteo/test/huan");
+
 			
+		Scanner scan = new Scanner(System.in);
 			
-			Scanner scan = new Scanner(System.in);
-			
-			while(true) {
-				String s = scan.nextLine();
-				String sub;
-				if (s.contains(" ")) {
-					sub = s.substring(0,s.indexOf(" "));
-				}else{
-					sub = s;
-				}
-				
-				
-				switch(sub) {
-				
-					case "show":
-					ui.showPLaylist(db, s.substring(s.indexOf(" ")+1));//skip space
-					break;
-					
-					case "delete":
-					//unterscheiden ob playlist oder song deleted wird
-						
-					case "playlists":
-						ui.showPlaylists(db);
-				}
+		while(true) {
+			String [] command = scan.nextLine().split(" +(?!$)");
+
+			//[show delete] [song playlist PLAYLISTNAME]
+			//show [song playlist
+			if(command.length < 2) {
+				System.out.println("SYNTAX ERROR: not enough arguments");
+				continue;
 			}
+
+			switch(command[0]) {
+			
+				case "list":
+					switch (command[1]){
+						case "playlists":
+							ui.showPlaylists(db);
+							break;
+							
+						case "songs":
+							ui.showSongs(db); //TODO implement showSongs
+							break;
+							
+						case "files":
+							ui.showFiles(db); //TODO implement showFiles
+							break;
+							
+						default:
+							System.out.printf("ARGUMENT ERROR: no list of %s found", command[1]);
+					}
+					break;
+
+					
+				case "delete":
+					if(command.length < 3){
+						System.out.println("SYNTAX ERROR: not enough arguments");
+						continue;
+					}
+
+					switch (command[1]){
+						case "playlist":
+							break;
+							
+						case "song":
+							break;
+							
+						case "file":
+							//db.deleteFile();
+							break;
+							
+						default:
+							System.out.printf("ARGUMENT ERROR: invalid type");
+					}
+					break;
+
+				case "add":
+					switch (command[1]){
+					}
+					break;
+			}
+		}
 	}
 }
