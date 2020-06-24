@@ -237,20 +237,22 @@ public class Db {
 	}
 	public void deletePlaylist(Playlist p) throws CustomSQLException {
 		try {
-			//playlist table
-			String sql = "DELETE from Playlists WHERE PlaylistId = ?";
+			//songs table
+			String sql = "DELETE from Songs WHERE PlaylistId = ?";
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, p.getPlaylistId());
 			stmt.execute();
-			System.out.println("first");
-			//songs table
-			sql = "DELETE from Songs WHERE PlaylistId = ?";
+			
+			//playlist table
+			sql = "DELETE from Playlists WHERE PlaylistId = ?";
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, p.getPlaylistId());
 			stmt.execute();
+			System.out.println("first");
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
 	}
