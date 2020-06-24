@@ -30,6 +30,9 @@ public class Main {
 					
 					case "delete":
 					//unterscheiden ob playlist oder song deleted wird
+						
+					case "playlists":
+						ui.showPlaylists(db);
 				}
 			}
 	}

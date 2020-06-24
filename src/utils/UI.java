@@ -18,5 +18,11 @@ public class UI {
 		}
 		System.out.println("No PLaylist with this name has been found");
 	}
+	
+	public void showPlaylists(Db db) {
+		for(Playlist p : db.getPlaylistArrayList()) {
+			System.out.printf("ID: %d	Name: %s",p.getPlaylistId(),p.getName());
+		}
+	}
 
 }
