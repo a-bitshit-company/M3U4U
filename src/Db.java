@@ -204,7 +204,6 @@ public class Db {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1,s.getSongId());
 			stmt.execute();
-			
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
@@ -218,6 +217,19 @@ public class Db {
 			stmt.setInt(1, s.getSongId());
 			stmt.setInt(2, p.getPlaylistId());
 			stmt.setInt(3, s.getSongId());
+			stmt.execute();
+		} catch (SQLException e) {
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
+	}
+
+	public void deleteFromPlaylist(Song s, Playlist p) throws CustomSQLException {
+		try {
+			String sql = "DELETE FROM Songs WHERE SongId = ? AND PlaylistId = ?";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, s.getSongId());
+			stmt.setInt(2, p.getPlaylistId());
 			stmt.execute();
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
