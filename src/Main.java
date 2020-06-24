@@ -20,12 +20,18 @@ public class Main {
 			
 			while(true) {
 				String s = scan.nextLine();
-				String sub = s.substring(0,s.indexOf(" "));
+				String sub;
+				if (s.contains(" ")) {
+					sub = s.substring(0,s.indexOf(" "));
+				}else{
+					sub = s;
+				}
+				
 				
 				switch(sub) {
 				
 					case "show":
-					ui.showPLaylist(db, s.substring(s.indexOf(" ")+1));
+					ui.showPLaylist(db, s.substring(s.indexOf(" ")+1));//skip space
 					break;
 					
 					case "delete":

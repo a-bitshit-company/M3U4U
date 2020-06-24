@@ -21,7 +21,7 @@ public class UI {
 	
 	public void showPlaylists(Db db) {
 		for(Playlist p : db.getPlaylistArrayList()) {
-			System.out.printf("ID: %d	Name: %s",p.getPlaylistId(),p.getName());
+			System.out.printf("ID: %d	Name: %s\n",p.getPlaylistId(),p.getName());
 		}
 	}
 
