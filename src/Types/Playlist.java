@@ -1,5 +1,7 @@
 package src.Types;
 
+import src.Db;
+
 public class Playlist {
 	private String name;
 	private String genre;
@@ -11,6 +13,16 @@ public class Playlist {
 		this.genre = genre;
 		this.desc = desc;
 		this.playlistId = playlistId;
+	}
+	
+	public void show(Db db) {
+		System.out.printf("Name: %s\nGenre: %s \nDescription: %s \nSongs: \n", name, genre, desc);
+		for(Song s : db.getSongArrayList()) {
+			if(s.getPlaylistId() == playlistId) {
+				s.show();
+			}
+		}
+		System.out.println();
 	}
 
 	public String getName() {

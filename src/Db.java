@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-//TODO methods: addtoplaylist, removefromplaylist, deletesong, converter zu m3u von datenbank, playlist(in m3u format) in datenbank einspeisen
+//TODO methods: addtoplaylist, removefromplaylist, converter zu m3u von datenbank, playlist(in m3u format) in datenbank einspeisen
 
 public class Db {
 	private Connection con;
@@ -43,8 +43,8 @@ public class Db {
       
 		public void getSongs() throws CustomSQLException{
 		songArrayList = new ArrayList<>();
-		Statement stmt;
 		try {
+			Statement stmt;
 			stmt = con.createStatement();
 			ResultSet result = stmt.executeQuery("SELECT * FROM Songs");
 			while(result.next()){
@@ -58,7 +58,7 @@ public class Db {
 	}
 
 	public void getPlaylists() throws CustomSQLException{
-		ArrayList<Playlist> PlaylistArrayList = new ArrayList<Playlist>();
+		PlaylistArrayList = new ArrayList<Playlist>();
 		Statement stmt;
 		try {
 			stmt = con.createStatement();
@@ -139,18 +139,77 @@ public class Db {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
 	}
-	public void deleteSong(String name) {
+	public void deleteSong(String name) throws CustomSQLException {
 		for(Song s : songArrayList) {
-			if(s.getName()==name) {
+			if(s.getName().equals(name)) {
 				deleteSong(s.getSongId());
 				break;
 			}
 		}
 	}
 	
-	public void deleteSong(int songId) {
-		
+	public void deleteSong(int songId) throws CustomSQLException {
+		try {
+			//Song table
+			String sql = "DELETE FROM Songs WHERE SongId = ?";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1,songId);
+			stmt.execute();
+			
+			getSongs(); //update list
+		} catch (SQLException e) {
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
+
 	}
+	
+	public void cleanUp() throws CustomSQLException{
+		try {
+			Statement stmt;
+			stmt = con.createStatement();
+			ResultSet result = stmt.executeQuery("SELECT SongId from Files");
+			boolean del = true;
+			while(result.next()){
+				for(Song s  : songArrayList) {
+					if(result.getString("SongId").equals(s.getSongId())) {
+						del = false;
+						break;
+					}
+					
+				}
+				if(del) deleteSong(result.getString("SongId"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteUnused(int songId) throws CustomSQLException {
+		for(Song s  : songArrayList) {
+			if(songId==s.getSongId()) {
+				return;				//stops execution if file is used
+			}
+		}
+		deleteFile(songId);
+	}
+		
+	public void deleteFile(int songId) throws CustomSQLException {
+		try {
+			//file table
+			String sql = "DELETE FROM Files WHERE SongId = ?";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1,songId);
+			stmt.execute();
+			
+		} catch (SQLException e) {
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
+	}
+	
+	
 	
 	
 	public String getMusicFolderpath() {

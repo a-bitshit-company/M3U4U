@@ -10,6 +10,10 @@ public class Song {
 		PlaylistId = playlistId;
 		this.name = name;
 	}
+	
+	public void show() {
+		System.out.println("	" +name);
+	}
 
 	public int getSongId() {
 		return SongId;
