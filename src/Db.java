@@ -186,13 +186,14 @@ public class Db {
 		}
 	}
 	
-	public void deleteUnused(Song s) throws CustomSQLException {
+	public boolean deleteUnused(Song s) throws CustomSQLException {
 		for(Song a  : songArrayList) {
 			if(s.getSongId()==a.getSongId()) {
-				return;				//stops execution if file is used
+				return false;				//stops execution if file is used
 			}
 		}
 		deleteFile(s);
+		return true;
 	}
 		
 	public void deleteFile(Song s) throws CustomSQLException {
