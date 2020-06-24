@@ -216,7 +216,7 @@ public class Db {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, s.getSongId());
 			stmt.setInt(2, p.getPlaylistId());
-			stmt.setInt(3, s.getSongId());
+			stmt.setString(3, s.getName());
 			stmt.execute();
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
