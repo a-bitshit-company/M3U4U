@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-//TODO methods: addtoplaylist, removefromplaylist, converter zu m3u von datenbank, playlist(in m3u format) in datenbank einspeisen
+//TODO methods:converter zu m3u von datenbank, playlist(in m3u format) in datenbank einspeisen
 
 public class Db {
 	private Connection con;
@@ -231,6 +231,25 @@ public class Db {
 			stmt.setInt(1, s.getSongId());
 			stmt.setInt(2, p.getPlaylistId());
 			stmt.execute();
+		} catch (SQLException e) {
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
+	}
+	public void deletePlaylist(Playlist p) throws CustomSQLException {
+		try {
+			//playlist table
+			String sql = "DELETE from Playlists WHERE PlaylistId = ?";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, p.getPlaylistId());
+			stmt.execute();
+			System.out.println("first");
+			//songs table
+			sql = "DELETE from Songs WHERE PlaylistId = ?";
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, p.getPlaylistId());
+			stmt.execute();
+			
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
