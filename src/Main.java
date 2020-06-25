@@ -37,11 +37,11 @@ public class Main {
 							break;
 							
 						case "songs":
-							ui.showSongs(db); //TODO implement showSongs
+							//ui.showSongs(db); //TODO implement showSongs
 							break;
 							
 						case "files":
-							ui.showFiles(db); //TODO implement showFiles
+							//ui.showFiles(db); //TODO implement showFiles
 							break;
 							
 						default:

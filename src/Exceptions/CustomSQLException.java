@@ -5,6 +5,7 @@ public class CustomSQLException extends Exception {
 
 	public CustomSQLException(String method) {
 		this.method = method;
+		System.out.printf("SQL ERROR: the method %s resulted in an error",method);
 		
 	}
 

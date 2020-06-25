@@ -1,5 +1,11 @@
 package src;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,15 +17,8 @@ import java.util.ArrayList;
 
 import src.Exceptions.CustomSQLException;
 import src.Types.*;
+import src.utils.ObjectFinder;
 import src.utils.PropertyReader;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 //TODO methods:converter zu m3u von datenbank, playlist(in m3u format) in datenbank einspeisen
 
@@ -139,14 +138,6 @@ public class Db {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
 	}
-	public void deleteSong(String name) throws CustomSQLException {
-		for(Song s : songArrayList) {
-			if(s.getName().equals(name)) {
-				deleteSong(s);
-				break;
-			}
-		}
-	}
 	
 	public void deleteSong(Song s) throws CustomSQLException {
 		try {
@@ -164,7 +155,7 @@ public class Db {
 
 	}
 	
-	public void cleanUp() throws CustomSQLException{
+	public void cleanUp(ObjectFinder of) throws CustomSQLException{
 		try {
 			Statement stmt;
 			stmt = con.createStatement();
@@ -178,7 +169,7 @@ public class Db {
 					}
 					
 				}
-				if(del) deleteSong(result.getString("SongId"));
+				if(del) deleteSong(of.findSong(result.getString("SongId")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
