@@ -159,7 +159,7 @@ public class Db {
 		try {
 			Statement stmt;
 			stmt = con.createStatement();
-			ResultSet result = stmt.executeQuery("SELECT SongId from Files");
+			ResultSet result = stmt.executeQuery("SELECT SongId from Songs");
 			boolean del = true;
 			while(result.next()){
 				for(Song s  : songArrayList) {
@@ -169,7 +169,7 @@ public class Db {
 					}
 					
 				}
-				if(del) deleteSong(of.findSong(result.getString("SongId")));
+				if(del) deleteFile(of.findSong(result.getString("SongId")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
