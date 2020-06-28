@@ -50,7 +50,7 @@ public class Db {
 				Song temp = new Song(result.getInt("SongId"), result.getInt("PlaylistId"), result.getString("name"));
 				songArrayList.add(temp);
 			}
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName()); //name from method
 		}
 		
@@ -169,7 +169,7 @@ public class Db {
 					}
 					
 				}
-				if(del) deleteFile(of.findSong(result.getString("SongId")));
+				if(del) deleteFile(Integer.parseInt(result.getString("SongId")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -183,18 +183,22 @@ public class Db {
 				return false;				//stops execution if file is used
 			}
 		}
-		deleteFile(s);
+		deleteFile(s.getSongId());
+		
+		getSongs();
+		
 		return true;
 	}
 		
-	public void deleteFile(Song s) throws CustomSQLException {
+	public void deleteFile(int songId) throws CustomSQLException {
 		try {
 			//file table
 			String sql = "DELETE FROM Files WHERE SongId = ?";
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1,s.getSongId());
+			stmt.setInt(1,songId);
 			stmt.execute();
+			
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
@@ -209,6 +213,8 @@ public class Db {
 			stmt.setInt(2, p.getPlaylistId());
 			stmt.setString(3, s.getName());
 			stmt.execute();
+			
+			getSongs(); 
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
@@ -222,6 +228,8 @@ public class Db {
 			stmt.setInt(1, s.getSongId());
 			stmt.setInt(2, p.getPlaylistId());
 			stmt.execute();
+			
+			getSongs();
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
@@ -242,7 +250,25 @@ public class Db {
 			stmt.execute();
 			System.out.println("first");
 			
+			getSongs();
+	        getPlaylists();  
+			
 		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
+	}
+	
+	public boolean filePresent(int songId) throws CustomSQLException {
+		try {
+			//files table
+			String sql = "SELECT SongId FROM Files WHERE SongId = ?";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, songId);
+			ResultSet result = stmt.executeQuery(); 
+			return result.next();
+		}catch(SQLException e){
 			e.printStackTrace();
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}

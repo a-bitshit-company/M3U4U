@@ -1,22 +1,22 @@
 package src.Types;
 
 public class Song {
-	private int SongId;
+	private int songId;
 	private int PlaylistId;
 	private String name;
 	
 	public Song(int songId, int playlistId, String name) {
-		SongId = songId;
+		this.songId = songId;
 		PlaylistId = playlistId;
 		this.name = name;
 	}
 	
 	public void show() {
-		System.out.println("	" +name);
+		System.out.printf("		ID: %d  Name: %s\n", songId, name);
 	}
 
 	public int getSongId() {
-		return SongId;
+		return songId;
 	}
 
 	public int getPlaylistId() {
@@ -28,7 +28,7 @@ public class Song {
 	}
 
 	public void setSongId(int songId) {
-		SongId = songId;
+		songId = songId;
 	}
 
 	public void setPlaylistId(int playlistId) {
