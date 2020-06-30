@@ -137,7 +137,7 @@ public class Db {
 		}
 	}
 	
-	public void deleteSong(Song s, ObjectFinder of) throws CustomSQLException {
+	public void deleteSong(Song s) throws CustomSQLException {
 		try {
 			//Song table
 			System.out.println(s.getName());

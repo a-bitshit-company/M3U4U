@@ -78,7 +78,7 @@ public class Main {
 							break;
 							
 						case "song":
-							db.deleteSong(ObjectFinder.findSong(Integer.parseInt(command[2]), db.getSongArrayList()),of);
+							db.deleteSong(ObjectFinder.findSong(Integer.parseInt(command[2]), db.getSongArrayList()));
 							break;
 							
 						case "file":
@@ -114,7 +114,7 @@ public class Main {
 					}
 					switch (command[1]){
 						case "playlist":
-							ObjectFinder.findPLaylist(command[2], );
+							ObjectFinder.findPLaylist(command[2],db.getPlaylistArrayList());
 							break;
 						case "song":
 
