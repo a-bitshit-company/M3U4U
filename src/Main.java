@@ -17,9 +17,9 @@ import src.utils.UI;
 public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException, CustomSQLException, SongNotFoundException, NumberFormatException, PlaylistNotFoundException{
-		Db db = new Db();
 		UI ui = new UI();
 		ObjectFinder of = new ObjectFinder();
+		Db db = new Db(of);
 		File test = new File("/home/matteo/test/huan");
 
 			
@@ -62,6 +62,7 @@ public class Main {
 							System.out.printf("ARGUMENT ERROR: no list of \"%s\" found\n", command[1]);
 							break;	
 					}
+					break;
 
 					
 				case "delete":

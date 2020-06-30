@@ -28,7 +28,7 @@ public class Db {
 	private ArrayList<Song> songArrayList;
 	private ArrayList<Playlist> PlaylistArrayList;
 	
-	public Db() throws IOException, ClassNotFoundException,CustomSQLException, SQLException{
+	public Db(ObjectFinder of) throws IOException, ClassNotFoundException,CustomSQLException, SQLException{
 		PropertyReader rd = new PropertyReader("connection.properties");
 		String user = rd.get("user");
 		String pwd = rd.get("password");
@@ -37,7 +37,8 @@ public class Db {
         Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(URL,user,pwd);
 			getSongs();
-	        getPlaylists();  
+	        getPlaylists();
+	        //cleanUp(of);
 	}
       
 		public void getSongs() throws CustomSQLException{
@@ -202,6 +203,7 @@ public class Db {
 			stmt.execute();
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
 	}
