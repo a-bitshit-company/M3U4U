@@ -12,7 +12,7 @@ public class Song {
 	}
 	
 	public void show() {
-		System.out.printf("		ID: %d  Name: %s\n", songId, name);
+		System.out.printf("	%d	%s\n", songId, name);
 	}
 
 	public int getSongId() {
@@ -28,7 +28,7 @@ public class Song {
 	}
 
 	public void setSongId(int songId) {
-		songId = songId;
+		this.songId = songId;
 	}
 
 	public void setPlaylistId(int playlistId) {

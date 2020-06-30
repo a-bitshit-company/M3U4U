@@ -30,7 +30,7 @@ public class Main {
 				System.out.println("SYNTAX ERROR: not enough arguments");
 				continue;
 			}
-
+//TODO: list song(show playlists where song is in)
 			switch(command[0]) {
 			
 				case "list":
@@ -38,17 +38,21 @@ public class Main {
 						case "playlists":
 							ui.showPlaylists(db);
 							break;
+						
+						case "playlist":
+							if(command.length < 3){
+								System.out.println("SYNTAX ERROR: not enough arguments");
+								break;
+							}
+							ui.showPLaylist(db, Integer.parseInt(command[2]));
+							break;
 							
 						case "songs":
-							//ui.showSongs(db); //TODO implement showSongs
-							break;
-							
-						case "files":
-							//ui.showFiles(db); //TODO implement showFiles
-							break;
+							ui.showSongs(db); 
+							break;		
 							
 						default:
-							System.out.printf("ARGUMENT ERROR: no list of %s found", command[1]);
+							System.out.printf("ARGUMENT ERROR: no list of %s found\n", command[1]);
 					}
 					break;
 
