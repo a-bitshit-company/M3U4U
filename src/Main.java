@@ -11,6 +11,8 @@ import com.mysql.cj.util.StringUtils;
 import src.Exceptions.CustomSQLException;
 import src.Exceptions.PlaylistNotFoundException;
 import src.Exceptions.SongNotFoundException;
+import src.Types.Playlist;
+import src.Types.Song;
 import src.utils.ObjectFinder;
 import src.utils.UI;
 
@@ -78,7 +80,7 @@ public class Main {
 							break;
 							
 						case "song":
-							db.deleteSong(ObjectFinder.findSong(Integer.parseInt(command[2]), db.getSongArrayList()),of);
+							db.deleteSong(ObjectFinder.findSong(Integer.parseInt(command[2]), db.getSongArrayList()));
 							break;
 							
 						case "file":
@@ -114,14 +116,17 @@ public class Main {
 					}
 					switch (command[1]){
 						case "playlist":
-							ObjectFinder.findPLaylist(command[2], );
+							Playlist pl = ObjectFinder.findPLaylist(command[2], db.getPlaylistArrayList());
+							ui.showPLaylist(db, pl.getPlaylistId());
 							break;
 						case "song":
-
+							Song s = ObjectFinder.findSong(command[2], db.getSongArrayList());
+							System.out.println(s.getSongId());
 							break;
 					}
+					break;
 				case "help":
-					
+					break;
 				default:
 					System.out.printf("SYNTAX ERROR: command \"%s\" is not valid", Arrays.deepToString(command).replace("[", "").replace(",", "").replace("]", ""));	
 			}

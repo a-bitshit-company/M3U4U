@@ -137,7 +137,7 @@ public class Db {
 		}
 	}
 	
-	public void deleteSong(Song s, ObjectFinder of) throws CustomSQLException {
+	public void deleteSong(Song s) throws CustomSQLException {
 		try {
 			//Song table
 			System.out.println(s.getName());
@@ -148,13 +148,13 @@ public class Db {
 			stmt.execute();
 			
 			getSongs(); //update list
-			cleanUp(of);
+			cleanUp();
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
 	}
 	
-	public void cleanUp(ObjectFinder of) throws CustomSQLException{
+	public void cleanUp() throws CustomSQLException{
 		try {
 			Statement stmt;
 			stmt = con.createStatement();
