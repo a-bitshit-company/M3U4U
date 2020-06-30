@@ -22,7 +22,6 @@ public class Main {
 		Db db = new Db(of);
 		File test = new File("/home/matteo/test/huan");
 
-			
 		Scanner scan = new Scanner(System.in);
 			
 		while(true) {
@@ -34,7 +33,6 @@ public class Main {
 			}
 //TODO: list song(show playlists where song is in)
 			switch(command[0]) {
-			
 				case "list":
 					switch (command[1]){
 						case "playlists":
@@ -46,6 +44,7 @@ public class Main {
 								System.out.println("SYNTAX ERROR: not enough arguments");
 								break;
 							}
+
 							if(!StringUtils.isStrictlyNumeric(command[2])) {
 								System.out.println("ARGUMENT ERROR: second argument is not and ID");
 								break;
@@ -64,7 +63,6 @@ public class Main {
 					}
 					break;
 
-					
 				case "delete":
 					if(command.length < 3){
 						System.out.println("SYNTAX ERROR: not enough arguments");
