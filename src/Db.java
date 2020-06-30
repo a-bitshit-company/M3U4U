@@ -28,7 +28,7 @@ public class Db {
 	private ArrayList<Song> songArrayList;
 	private ArrayList<Playlist> PlaylistArrayList;
 	
-	public Db(ObjectFinder of) throws IOException, ClassNotFoundException,CustomSQLException, SQLException{
+	public Db() throws IOException, ClassNotFoundException,CustomSQLException, SQLException{
 		PropertyReader rd = new PropertyReader("connection.properties");
 		String user = rd.get("user");
 		String pwd = rd.get("password");
@@ -87,7 +87,6 @@ public class Db {
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
-		
 	}
 	
 	private File parser(Blob blob, Song s) throws IOException, FileNotFoundException, SQLException{
@@ -99,8 +98,8 @@ public class Db {
 				fileName = a.getName();
 				break;
 			}
-			
 		}
+
 		File temp;
 		temp = new File(MusicFolderpath + "/" + fileName); //works on *nix and windows
 		
@@ -112,10 +111,8 @@ public class Db {
         	output.write(buffer);
         }
         return temp;
-        
-        
-              
 	}
+
 	public void uploadSong(File file) throws FileNotFoundException, CustomSQLException{
 		//md5 hash to check if file already present
 		try {
@@ -155,7 +152,6 @@ public class Db {
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
-
 	}
 	
 	public void cleanUp() throws CustomSQLException{
@@ -170,7 +166,6 @@ public class Db {
 						del = false;
 						break;
 					}
-					
 				}
 				if(del) {
 					deleteFile(Integer.parseInt(result.getString("SongId")));
@@ -281,7 +276,6 @@ public class Db {
 	
 	//public void addPlaylist()
 	
-
 	public String getMusicFolderpath() {
 		return MusicFolderpath;
 	}

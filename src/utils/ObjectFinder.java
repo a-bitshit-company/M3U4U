@@ -13,7 +13,7 @@ public class ObjectFinder {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Playlist findPLaylist(int playlistId, ArrayList<Playlist> playlistArrayList) throws PlaylistNotFoundException {
+	public static Playlist findPLaylist(int playlistId, ArrayList<Playlist> playlistArrayList) throws PlaylistNotFoundException {
 		for(Playlist p : playlistArrayList) {
 			if(p.getPlaylistId() == playlistId) {
 				return p;
@@ -23,7 +23,7 @@ public class ObjectFinder {
 	}
 	
 	
-	public Playlist findPLaylist(String name,ArrayList<Playlist> playlistArrayList) throws PlaylistNotFoundException {
+	public static Playlist findPLaylist(String name,ArrayList<Playlist> playlistArrayList) throws PlaylistNotFoundException {
 		for(Playlist p : playlistArrayList) {
 			if(p.getName() == name) {
 				return p;
@@ -32,7 +32,7 @@ public class ObjectFinder {
 		throw new PlaylistNotFoundException();
 	}
 	
-	public Song findSong(int songId, ArrayList<Song> arrayList) throws SongNotFoundException {
+	public static Song findSong(int songId, ArrayList<Song> arrayList) throws SongNotFoundException {
 		for(Song s : arrayList) {
 			if(s.getSongId() == songId) {
 				return s;
@@ -41,7 +41,7 @@ public class ObjectFinder {
 		throw new SongNotFoundException();
 	}
 	
-	public Song findSong(String name, ArrayList<Song> songArrayList) throws SongNotFoundException {
+	public static Song findSong(String name, ArrayList<Song> songArrayList) throws SongNotFoundException {
 		for(Song s : songArrayList) {
 			if(s.getName().equals(name)) {
 				return s;
@@ -49,6 +49,4 @@ public class ObjectFinder {
 	}
 		throw new SongNotFoundException();
 	}
-	
-	
 }
