@@ -25,7 +25,7 @@ public class ObjectFinder {
 	
 	public static Playlist findPLaylist(String name,ArrayList<Playlist> playlistArrayList) throws PlaylistNotFoundException {
 		for(Playlist p : playlistArrayList) {
-			if(p.getName() == name) {
+			if(p.getName().contains(name)) {
 				return p;
 			}
 		}
@@ -43,7 +43,7 @@ public class ObjectFinder {
 	
 	public static Song findSong(String name, ArrayList<Song> songArrayList) throws SongNotFoundException {
 		for(Song s : songArrayList) {
-			if(s.getName().equals(name)) {
+			if(s.getName().contains(name)) {
 				return s;
 			}
 	}

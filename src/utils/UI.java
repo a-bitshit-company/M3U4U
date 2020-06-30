@@ -17,7 +17,7 @@ public class UI {
 				return;
 			}
 		}
-		System.out.println("ARGUMENT ERROR: No PLaylist with this name has been found");
+		System.out.println("ARGUMENT ERROR: No PLaylist with this ID has been found");
 	}
 	
 	public void showPlaylists(Db db) {

@@ -116,6 +116,14 @@ public class Main {
 					}
 					switch (command[1]){
 						case "playlist":
+
+							//this is garbage:
+							String plName = command[2];
+							for(int i = 3; i < command.length; i++)
+								plName += " " + command[i];
+							//end garbage
+
+							System.out.println(plName);
 							Playlist pl = ObjectFinder.findPLaylist(command[2], db.getPlaylistArrayList());
 							ui.showPLaylist(db, pl.getPlaylistId());
 							break;
