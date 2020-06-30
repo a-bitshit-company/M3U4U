@@ -139,7 +139,7 @@ public class Db {
 		}
 	}
 	
-	public void deleteSong(Song s) throws CustomSQLException {
+	public void deleteSong(Song s, ObjectFinder of) throws CustomSQLException {
 		try {
 			//Song table
 			System.out.println(s.getName());
@@ -150,6 +150,7 @@ public class Db {
 			stmt.execute();
 			
 			getSongs(); //update list
+			cleanUp(of);
 		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}

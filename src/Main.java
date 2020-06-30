@@ -26,7 +26,7 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 			
 		while(true) {
-			String [] command = scan.nextLine().split(" +(?!$)");
+			String [] command = scan.nextLine().split("\\s+(?!$)");
 
 			if(command.length < 2) {
 				System.out.println("SYNTAX ERROR: not enough arguments");
@@ -80,7 +80,7 @@ public class Main {
 							break;
 							
 						case "song":
-							db.deleteSong(of.findSong(Integer.parseInt(command[2]), db.getSongArrayList()));
+							db.deleteSong(of.findSong(Integer.parseInt(command[2]), db.getSongArrayList()),of);
 							break;
 							
 						case "file":
