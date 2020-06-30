@@ -18,8 +18,7 @@ public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException, CustomSQLException, SongNotFoundException, NumberFormatException, PlaylistNotFoundException{
 		UI ui = new UI();
-		ObjectFinder of = new ObjectFinder();
-		Db db = new Db(of);
+		Db db = new Db();
 		File test = new File("/home/matteo/test/huan");
 
 		Scanner scan = new Scanner(System.in);
@@ -75,15 +74,15 @@ public class Main {
 
 					switch (command[1]){
 						case "playlist":
-							db.deletePlaylist(of.findPLaylist(Integer.parseInt(command[2]),db.getPlaylistArrayList()));
+							db.deletePlaylist(ObjectFinder.findPLaylist(Integer.parseInt(command[2]),db.getPlaylistArrayList()));
 							break;
 							
 						case "song":
-							db.deleteSong(of.findSong(Integer.parseInt(command[2]), db.getSongArrayList()),of);
+							db.deleteSong(ObjectFinder.findSong(Integer.parseInt(command[2]), db.getSongArrayList()),of);
 							break;
 							
 						case "file":
-							if(!db.deleteUnused(of.findSong(Integer.parseInt(command[2]), db.getSongArrayList()))) {
+							if(!db.deleteUnused(ObjectFinder.findSong(Integer.parseInt(command[2]), db.getSongArrayList()))) {
 								try {
 								if(db.filePresent(Integer.parseInt(command[2]))) {
 									System.out.println("DEPENDENCY WARNING: file is still referenced in Songs table. Do you still want to delete the file?(Y/N)");
@@ -109,6 +108,18 @@ public class Main {
 					}
 					break;
 				case "find":
+					if(command.length < 3){
+						System.out.println("SYNTAX ERROR: not enough arguments");
+						break;
+					}
+					switch (command[1]){
+						case "playlist":
+							ObjectFinder.findPLaylist(command[2], );
+							break;
+						case "song":
+
+							break;
+					}
 				case "help":
 					
 				default:

@@ -28,7 +28,7 @@ public class Db {
 	private ArrayList<Song> songArrayList;
 	private ArrayList<Playlist> PlaylistArrayList;
 	
-	public Db(ObjectFinder of) throws IOException, ClassNotFoundException,CustomSQLException, SQLException{
+	public Db() throws IOException, ClassNotFoundException,CustomSQLException, SQLException{
 		PropertyReader rd = new PropertyReader("connection.properties");
 		String user = rd.get("user");
 		String pwd = rd.get("password");
@@ -274,7 +274,6 @@ public class Db {
 	
 	//public void addPlaylist()
 	
-
 	public String getMusicFolderpath() {
 		return MusicFolderpath;
 	}
