@@ -2,6 +2,7 @@ package src.utils;
 
 import java.util.ArrayList;
 
+import src.Exceptions.PlaylistNotFoundException;
 import src.Exceptions.SongNotFoundException;
 import src.Types.Playlist;
 import src.Types.Song;
@@ -12,30 +13,27 @@ public class ObjectFinder {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Playlist findPLaylist(int playlistId, ArrayList<Playlist> playlistArrayList) {
+	public Playlist findPLaylist(int playlistId, ArrayList<Playlist> playlistArrayList) throws PlaylistNotFoundException {
 		for(Playlist p : playlistArrayList) {
 			if(p.getPlaylistId() == playlistId) {
 				return p;
 			}
 		}
-		System.out.printf("ARGUMENT ERROR: PLaylist with ID: %d not found",playlistId);
-		return null;
+		throw new PlaylistNotFoundException();
 	}
 	
 	
-	public Playlist findPLaylist(String name,ArrayList<Playlist> playlistArrayList) {
+	public Playlist findPLaylist(String name,ArrayList<Playlist> playlistArrayList) throws PlaylistNotFoundException {
 		for(Playlist p : playlistArrayList) {
 			if(p.getName() == name) {
 				return p;
 			}
 		}
-		System.out.printf("ARGUMENT ERROR: PLaylist with name: %s not found",name);
-		return null;
+		throw new PlaylistNotFoundException();
 	}
 	
 	public Song findSong(int songId, ArrayList<Song> arrayList) throws SongNotFoundException {
 		for(Song s : arrayList) {
-			s.show();
 			if(s.getSongId() == songId) {
 				return s;
 			}

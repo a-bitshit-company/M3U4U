@@ -9,13 +9,14 @@ import java.util.Scanner;
 import com.mysql.cj.util.StringUtils;
 
 import src.Exceptions.CustomSQLException;
+import src.Exceptions.PlaylistNotFoundException;
 import src.Exceptions.SongNotFoundException;
 import src.utils.ObjectFinder;
 import src.utils.UI;
 
 public class Main {
 
-	public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException, CustomSQLException, SongNotFoundException{
+	public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException, CustomSQLException, SongNotFoundException, NumberFormatException, PlaylistNotFoundException{
 		Db db = new Db();
 		UI ui = new UI();
 		ObjectFinder of = new ObjectFinder();

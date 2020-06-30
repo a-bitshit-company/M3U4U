@@ -142,6 +142,7 @@ public class Db {
 	public void deleteSong(Song s) throws CustomSQLException {
 		try {
 			//Song table
+			System.out.println(s.getName());
 			String sql = "DELETE FROM Songs WHERE SongId = ?";
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
@@ -248,7 +249,6 @@ public class Db {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, p.getPlaylistId());
 			stmt.execute();
-			System.out.println("first");
 			
 			getSongs();
 	        getPlaylists();  
