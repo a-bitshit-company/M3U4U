@@ -23,7 +23,7 @@ CREATE TABLE Songs
 	PlaylistId int,
 	name VARCHAR(128),
 	FOREIGN KEY (PlaylistId) REFERENCES Playlists(Playlistid),
-	FOREIGN KEY (SongId) REFERENCES Files(SongId)
+	FOREIGN KEY (SongId) REFERENCES Files(SongId) ON DELETE CASCADE
 );
 
 
