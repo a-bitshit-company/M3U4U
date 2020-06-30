@@ -3,7 +3,10 @@ package src;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import com.mysql.cj.util.StringUtils;
 
 import src.Exceptions.CustomSQLException;
 import src.Exceptions.SongNotFoundException;
@@ -24,8 +27,6 @@ public class Main {
 		while(true) {
 			String [] command = scan.nextLine().split(" +(?!$)");
 
-			//[show delete] [song playlist PLAYLISTNAME]
-			//show [song playlist
 			if(command.length < 2) {
 				System.out.println("SYNTAX ERROR: not enough arguments");
 				continue;
@@ -44,6 +45,11 @@ public class Main {
 								System.out.println("SYNTAX ERROR: not enough arguments");
 								break;
 							}
+							if(!StringUtils.isStrictlyNumeric(command[2])) {
+								System.out.println("ARGUMENT ERROR: second argument is not and ID");
+								break;
+							}
+							
 							ui.showPLaylist(db, Integer.parseInt(command[2]));
 							break;
 							
@@ -52,23 +58,28 @@ public class Main {
 							break;		
 							
 						default:
-							System.out.printf("ARGUMENT ERROR: no list of %s found\n", command[1]);
+							System.out.printf("ARGUMENT ERROR: no list of \"%s\" found\n", command[1]);
+							break;	
 					}
-					break;
 
 					
 				case "delete":
 					if(command.length < 3){
 						System.out.println("SYNTAX ERROR: not enough arguments");
-						continue;
+						break;
+					}
+					if(!StringUtils.isStrictlyNumeric(command[2])) {
+						System.out.println("ARGUMENT ERROR: second argument is not and ID");
+						break;
 					}
 
 					switch (command[1]){
 						case "playlist":
-							db.deletePlaylist(of.findPLaylist(command[2],db.getPlaylistArrayList()));
+							db.deletePlaylist(of.findPLaylist(Integer.parseInt(command[2]),db.getPlaylistArrayList()));
 							break;
 							
 						case "song":
+							db.deleteSong(of.findSong(Integer.parseInt(command[2]), db.getSongArrayList()));
 							break;
 							
 						case "file":
@@ -98,7 +109,10 @@ public class Main {
 					}
 					break;
 				case "find":
+				case "help":
 					
+				default:
+					System.out.printf("SYNTAX ERROR: command \"%s\" is not valid", Arrays.deepToString(command).replace("[", "").replace(",", "").replace("]", ""));	
 			}
 		}
 	}
