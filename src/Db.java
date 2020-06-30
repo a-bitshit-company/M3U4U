@@ -38,7 +38,7 @@ public class Db {
 			con = DriverManager.getConnection(URL,user,pwd);
 			getSongs();
 	        getPlaylists();
-	        //cleanUp(of);
+	        cleanUp();
 	}
       
 		public void getSongs() throws CustomSQLException{
@@ -162,12 +162,14 @@ public class Db {
 			boolean del = true;
 			while(result.next()){
 				for(Song s  : songArrayList) {
-					if(result.getString("SongId").equals(s.getSongId())) {
+					if(Integer.parseInt(result.getString("SongId")) == s.getSongId()) {
 						del = false;
 						break;
 					}
 				}
-				if(del) deleteFile(Integer.parseInt(result.getString("SongId")));
+				if(del) {
+					deleteFile(Integer.parseInt(result.getString("SongId")));
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
