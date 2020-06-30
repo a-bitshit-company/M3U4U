@@ -19,7 +19,6 @@ import src.utils.UI;
 public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException, CustomSQLException, SongNotFoundException, NumberFormatException, PlaylistNotFoundException{
-		UI ui = new UI();
 		Db db = new Db();
 		File test = new File("/home/matteo/test/huan");
 
@@ -37,7 +36,7 @@ public class Main {
 				case "list":
 					switch (command[1]){
 						case "playlists":
-							ui.showPlaylists(db);
+							UI.showPlaylists(db);
 							break;
 						
 						case "playlist":
@@ -51,11 +50,11 @@ public class Main {
 								break;
 							}
 							
-							ui.showPLaylist(db, Integer.parseInt(command[2]));
+							UI.showPLaylist(db, Integer.parseInt(command[2]));
 							break;
 							
 						case "songs":
-							ui.showSongs(db); 
+							UI.showSongs(db);
 							break;		
 							
 						default:
@@ -125,7 +124,7 @@ public class Main {
 
 							System.out.println(plName);
 							Playlist pl = ObjectFinder.findPLaylist(command[2], db.getPlaylistArrayList());
-							ui.showPLaylist(db, pl.getPlaylistId());
+							UI.showPLaylist(db, pl.getPlaylistId());
 							break;
 						case "song":
 							Song s = ObjectFinder.findSong(command[2], db.getSongArrayList());
