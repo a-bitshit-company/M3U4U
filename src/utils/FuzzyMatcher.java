@@ -17,7 +17,7 @@ public class FuzzyMatcher {
         return levenshtein(a, b);
     }
 
-    public static String getBestMatch(String query, String[] strings){
+    public static int getBestMatchIndex(String query, String[] strings){
         int[] editDistances = new int[strings.length];
         for(int i = 0; i < strings.length; i++){
             editDistances[i] = getEditDistance(query, strings[i]);
@@ -31,8 +31,7 @@ public class FuzzyMatcher {
                 index = i;
             }
         }
-
-        return strings[index];
+        return index;
     }
 
     private static int levenshtein(String a, String b){

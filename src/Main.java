@@ -122,13 +122,14 @@ public class Main {
 								plName += " " + command[i];
 							//end garbage
 
-							System.out.println(plName);
+							System.out.println("Best match for " + plName + ":");
 							Playlist pl = ObjectFinder.findPLaylist(command[2], db.getPlaylistArrayList());
 							UI.showPLaylist(db, pl.getPlaylistId());
 							break;
+
 						case "song":
 							Song s = ObjectFinder.findSong(command[2], db.getSongArrayList());
-							System.out.println(s.getSongId());
+							s.show();
 							break;
 					}
 					break;

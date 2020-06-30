@@ -42,11 +42,10 @@ public class ObjectFinder {
 	}
 	
 	public static Song findSong(String name, ArrayList<Song> songArrayList) throws SongNotFoundException {
-		for(Song s : songArrayList) {
-			if(s.getName().contains(name)) {
-				return s;
-			}
-	}
-		throw new SongNotFoundException();
+		String[] names = new String[songArrayList.size()];
+		for(int i = 0; i < songArrayList.size(); i++) {
+			names[i] = songArrayList.get(i).getName();
+		}
+		return songArrayList.get(FuzzyMatcher.getBestMatchIndex(name, names));
 	}
 }
