@@ -26,7 +26,7 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 			
 		while(true) {
-			String [] command = scan.nextLine().split(" +(?!$)");
+			String [] command = scan.nextLine().split("\\s+(?!$)");
 
 			if(command.length < 2) {
 				System.out.println("SYNTAX ERROR: not enough arguments");
