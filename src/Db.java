@@ -114,7 +114,6 @@ public class Db {
 	}
 
 	public void uploadSong(File file) throws FileNotFoundException, CustomSQLException{
-		//md5 hash to check if file already present
 		try {
 			//files table
 			String sql = "INSERT INTO Files(file,MD5) VALUES(?,MD5(file))";
@@ -270,6 +269,23 @@ public class Db {
 			return result.next();
 		}catch(SQLException e){
 			e.printStackTrace();
+			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
+		}
+	}
+	
+	public void addPlaylist(Playlist p) throws CustomSQLException {
+		try {
+			String sql = "INSERT INTO Playlists(name,genre,description) VALUES( ?, ?, ?)";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, p.getName());
+			stmt.setString(2, p.getGenre());
+			stmt.setString(3, p.getDesc());
+			stmt.execute();
+			
+			getSongs();
+			getPlaylists();
+		} catch (SQLException e) {
 			throw new CustomSQLException(Thread.currentThread().getStackTrace()[1].getMethodName());
 		}
 	}

@@ -105,8 +105,21 @@ public class Main {
 					}
 					switch (command[1]){
 						case "playlist":
+							String name = command[1];
+							System.out.println("Genre:");
+							String genre = scan.nextLine();
+							System.out.println("Description:");
+							String desc =scan.nextLine();
+							Playlist p = new Playlist(name,genre,desc,(Integer) null);
+							db.addPlaylist(p);
 							break;
 						case "song":
+							File f = new File(command[2]);
+							if(f.exists()) {
+							db.uploadSong(f);
+							break;
+							}
+							System.out.printf("ARGUMENT ERROR: File with the path %s was not found", command[2]);
 							break;
 					}
 					break;
