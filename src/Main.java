@@ -99,12 +99,27 @@ public class Main {
 					break;
 
 				case "add":
+					if(command.length < 3){
+						System.out.println("SYNTAX ERROR: not enough arguments");
+						break;
+					}
 					switch (command[1]){
-						
+						case "playlist":
+							break;
+						case "song":
+							break;
 					}
 					break;
 					
 				case "addto":
+					if(command.length < 3){
+						System.out.println("SYNTAX ERROR: not enough arguments");
+						break;
+					}
+					if(!StringUtils.isStrictlyNumeric(command[2]) && !StringUtils.isStrictlyNumeric(command[1])) {
+						System.out.println("ARGUMENT ERROR: arguments have to be a valid id");
+						break;
+					}
 					Song s = ObjectFinder.findSong(Integer.parseInt(command[2]), db.getSongArrayList());
 					Playlist p = ObjectFinder.findPLaylist(command[1], db.getPlaylistArrayList());
 					db.addToPlaylist(s,p);
