@@ -27,11 +27,6 @@ public class Main {
 		while(true) {
 			String [] command = scan.nextLine().split("\\s+(?!$)");
 
-			if(command.length < 2) {
-				System.out.println("SYNTAX ERROR: not enough arguments");
-				continue;
-			}
-//TODO: list song(show playlists where song is in)
 			switch(command[0]) {
 				case "list":
 					switch (command[1]){
@@ -41,7 +36,7 @@ public class Main {
 						
 						case "playlist":
 							if(command.length < 3){
-								System.out.println("SYNTAX ERROR: not enough arguments");
+								System.out.println("SYNTAX ERROR: not enough arguments3");
 								break;
 							}
 
@@ -65,7 +60,7 @@ public class Main {
 
 				case "delete":
 					if(command.length < 3){
-						System.out.println("SYNTAX ERROR: not enough arguments");
+						System.out.println("SYNTAX ERROR: not enough arguments2");
 						break;
 					}
 					if(!StringUtils.isStrictlyNumeric(command[2])) {
@@ -105,19 +100,26 @@ public class Main {
 
 				case "add":
 					switch (command[1]){
-						//case 
+						
 					}
+					break;
+					
+				case "addto":
+					Song s = ObjectFinder.findSong(Integer.parseInt(command[2]), db.getSongArrayList());
+					Playlist p = ObjectFinder.findPLaylist(command[1], db.getPlaylistArrayList());
+					db.addToPlaylist(s,p);
+					System.out.printf("Added %s to playlist %s",s.getName(), p.getName());
 					break;
 				case "find":
 					if(command.length < 3){
-						System.out.println("SYNTAX ERROR: not enough arguments");
+						System.out.println("SYNTAX ERROR: not enough arguments1");
 						break;
 					}
 					switch (command[1]){
 						case "playlist":
 
 							//this is garbage:
-							String plName = command[2];
+							 String plName = command[2];
 							for(int i = 3; i < command.length; i++)
 								plName += " " + command[i];
 							//end garbage
@@ -128,12 +130,31 @@ public class Main {
 							break;
 
 						case "song":
-							Song s = ObjectFinder.findSong(command[2], db.getSongArrayList());
+							//this is garbage:
+							plName = command[2];
+							for(int i = 3; i < command.length; i++)
+								plName += " " + command[i];
+							//end garbage
+							
+							s = ObjectFinder.findSong(command[2], db.getSongArrayList());
 							s.show();
 							break;
 					}
 					break;
 				case "help":
+					System.out.println("USAGE:");
+					System.out.println("	help									shows usage of commands");
+					System.out.println("	list pLaylists							list of playlists");
+					System.out.println("		 	Songs							list of songs");
+					System.out.println("		 	playlist <PlaylistId>			lists songs in playlist");
+					System.out.println("	delete playlist <PlaylistId>			deletes playlist");
+					System.out.println("		   song	<SongId>					deletes song");
+					System.out.println("		   file <SongId>					deletes file");
+					System.out.println("	addto <PLaylistId> <songId>				adds song to playlist");
+					System.out.println("	add playlist <PlaylistName>				adds playlist");
+					System.out.println("		song <PathToFile>					uploads Song to database");
+					System.out.println("	find playlist <PlaylistName>			shows best match for playlistName");
+					System.out.println("		 song <songName>					show best match for Songname");
 					break;
 				default:
 					System.out.printf("SYNTAX ERROR: command \"%s\" is not valid", Arrays.deepToString(command).replace("[", "").replace(",", "").replace("]", ""));	
