@@ -143,18 +143,22 @@ public class Main {
 					break;
 				case "help":
 					System.out.println("USAGE:");
-					System.out.println("	help									shows usage of commands");
-					System.out.println("	list pLaylists							list of playlists");
-					System.out.println("		 	Songs							list of songs");
-					System.out.println("		 	playlist <PlaylistId>			lists songs in playlist");
-					System.out.println("	delete playlist <PlaylistId>			deletes playlist");
-					System.out.println("		   song	<SongId>					deletes song");
-					System.out.println("		   file <SongId>					deletes file");
-					System.out.println("	addto <PLaylistId> <songId>				adds song to playlist");
-					System.out.println("	add playlist <PlaylistName>				adds playlist");
-					System.out.println("		song <PathToFile>					uploads Song to database");
-					System.out.println("	find playlist <PlaylistName>			shows best match for playlistName");
-					System.out.println("		 song <songName>					show best match for Songname");
+					System.out.println("	help					shows usage of commands");
+					System.out.println("	list	playlists			list of playlists");
+					System.out.println("		Songs				list of songs");
+					System.out.println("		playlist <PlaylistId>		lists songs in playlist");
+					System.out.println("");
+					System.out.println("	delete	playlist <PlaylistId>		deletes playlist");
+					System.out.println("		song <SongId>			deletes song");
+					System.out.println("		file <SongId>			deletes file");
+					System.out.println("");
+					System.out.println("	addto	<PLaylistId> <songId>		adds song to playlist");
+					System.out.println("");
+					System.out.println("	add	playlist <PlaylistName>		adds playlist");
+					System.out.println("		song <PathToFile>		uploads Song to database");
+					System.out.println("");
+					System.out.println("	find	playlist <PlaylistName>		shows best match for playlistName");
+					System.out.println("		song <songName>			show best match for Songname");
 					break;
 				default:
 					System.out.printf("SYNTAX ERROR: command \"%s\" is not valid", Arrays.deepToString(command).replace("[", "").replace(",", "").replace("]", ""));	
